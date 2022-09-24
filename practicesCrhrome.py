@@ -16,7 +16,7 @@ import sys
 def _main_():
     print("asd")
 
-with open("../practices/subjects.json", "r", encoding="utf-8") as read_file:
+with open("./subjects.json", "r", encoding="utf-8") as read_file:
     data = json.load(read_file, )
 
 username=sys.argv[1]
@@ -25,7 +25,7 @@ password=sys.argv[2]
 #myOptions = webdriver.ChromeOptions()
 #myOptions.add_arguments("disable-infobars")
 #driver = webdriver.Chrome(options=myOptions)
-myService = Service("../practices/chromedriver.exe")
+myService = Service("./chromedriver.exe")
 driver = webdriver.Chrome(service=myService)
 
 driver.get("https://www.dsi.uclm.es/logalumnx.php?que=login&XURL=%2Falumnos%2Fpracticas.php%3Fque%3Dau")
