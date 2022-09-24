@@ -20,20 +20,14 @@ with open("../practices/subjects.json", "r", encoding="utf-8") as read_file:
 username=sys.argv[1]
 password=sys.argv[2]
 
-print(">" + username + "<")
-print(">" + password + "<")
-
-
 #myOptions = webdriver.ChromeOptions()
 #myOptions.add_arguments("disable-infobars")
 #driver = webdriver.Chrome(options=myOptions)
-
-driver = webdriver.Chrome("../practices/chromedriver.exe")
+myService = Service("../practices/chromedriver.exe")
+driver = webdriver.Chrome(service=myService)
 
 driver.get("https://www.dsi.uclm.es/logalumnx.php?que=login&XURL=%2Falumnos%2Fpracticas.php%3Fque%3Dau")
 
-
-#WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.LINK_TEXT, "Pulsa aquí para autentificarte").click())
 
 #Login
 loginBox = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "txtloginUsr"))
@@ -42,7 +36,12 @@ loginBox.send_keys(username)
 passwordBox = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "txtloginPwd"))
 passwordBox.send_keys(password)
 
-WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "SubmitUsr").click())
+AcceptButton = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "SubmitUsr"))
+AcceptButton.click()
+
+trash = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.LINK_TEXT, "Grado en Ingeniería Informática (AB)"))
+trash.click()
+
 
 #Storing links
 links = []
@@ -55,10 +54,24 @@ for subject in data:  #For each subject in Json file
 
 #Open links from variable link in new tabs                                                                      
 for index in range(len(links)):
-    driver.execute_script("window.open('{}');".format(links[index].get_attribute('href')))
-    driver.switch_to.window(driver.window_handles[0]) 
+    driver.execute_script("window.open('{}');".format(links[index].get_attribute('href'))) 
     print(links[index].get_attribute('href'))
-        
+
+groups = driver.find_elements(By.PARTIAL_LINK_TEXT, "a este grupo>")
+
+for group in groups:
+    print(groups)
+
+tab=len(links)
+#Choose desired group
+for subject in data:  #For each subject in Json file
+    for attribute in data[subject]:   #for each attribute in subject
+        print(attribute["name"] + "  " + attribute["group"])
+        driver.switch_to.window(driver.window_handles[tab])
+        #group = driver.find_element(By.LINK_TEXT, attribute["group"])
+        #group.click()
+        tab-=1
+
 
 #driver.quit()
 

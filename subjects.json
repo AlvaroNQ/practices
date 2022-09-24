@@ -2,21 +2,21 @@
   "subject1": [
     {
       "name": "Sistemas Inteligentes (Grupo I)",
-      "group": "Grupo 1"
+      "group": "1"
     }
   ],
 
   "subject2": [
     {
       "name": "Sistemas Distribuidos (Grupo I)",
-      "group": "Grupo 1"
+      "group": "1"
     }
   ],
 
   "subject3": [
     {
       "name": "Ingeniería del Software II (Grupo I)",
-      "group": "Grupo 1"
+      "group": "1"
     }
   ]
 }
