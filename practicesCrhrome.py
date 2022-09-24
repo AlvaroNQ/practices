@@ -1,5 +1,6 @@
 #!/usr/bin/python
 #version: 2
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
@@ -13,26 +14,34 @@ import time
 import sys
 
         
-with open("subjects.json", "r", encoding="utf-8") as read_file:
+with open("../practices/subjects.json", "r", encoding="utf-8") as read_file:
     data = json.load(read_file, )
 
-myUser = ""
-myPassword = ""
+username=sys.argv[1]
+password=sys.argv[2]
+
+print(">" + username + "<")
+print(">" + password + "<")
+
 
 #myOptions = webdriver.ChromeOptions()
 #myOptions.add_arguments("disable-infobars")
 #driver = webdriver.Chrome(options=myOptions)
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome("../practices/chromedriver.exe")
 
 driver.get("https://www.dsi.uclm.es/logalumnx.php?que=login&XURL=%2Falumnos%2Fpracticas.php%3Fque%3Dau")
 
-driver.find_element(By.LINK_TEXT, "Pulsa aquí para autentificarte").click()
+
+#WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.LINK_TEXT, "Pulsa aquí para autentificarte").click())
+
 #Login
-login = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "txtloginUsr"))
-login.send_keys(myUser)
-password = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "txtloginPwd"))
-password.send_keys(myPassword)
+loginBox = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "txtloginUsr"))
+loginBox.send_keys(username)
+
+passwordBox = WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "txtloginPwd"))
+passwordBox.send_keys(password)
+
 WebDriverWait(driver,50).until(lambda driver: driver.find_element(By.NAME, "SubmitUsr").click())
 
 #Storing links
