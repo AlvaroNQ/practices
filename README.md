@@ -3,5 +3,5 @@ Script to automatically select practice group for a given set of subjects, which
 
 Running Example:
 ```
-C:\Users\myUser\practices-2>python ./practicesCrhrome.py myUsername myPassword
+C:\Users\myUser\practices-2>python ./practicesChrome.py myUsername myPassword
 ```
