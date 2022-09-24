@@ -13,7 +13,7 @@ import time
 import sys
 
         
-with open("subjects.json", "r", encoding="utf-8") as read_file:
+with open("./subjects.json", "r", encoding="utf-8") as read_file:
     data = json.load(read_file, )
 
 myUser = ""
