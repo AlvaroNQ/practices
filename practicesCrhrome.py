@@ -13,7 +13,9 @@ import json
 import time
 import sys
 
-        
+def _main_():
+    print("asd")
+
 with open("../practices/subjects.json", "r", encoding="utf-8") as read_file:
     data = json.load(read_file, )
 
@@ -45,7 +47,6 @@ trash.click()
 
 #Storing links
 links = []
-
 #Save choosen subjects's links into list
 for subject in data:  #For each subject in Json file
     for attribute in data[subject]:   #for each attribute in subject
@@ -57,17 +58,15 @@ for index in range(len(links)):
     driver.execute_script("window.open('{}');".format(links[index].get_attribute('href'))) 
     print(links[index].get_attribute('href'))
 
-groups = driver.find_elements(By.PARTIAL_LINK_TEXT, "a este grupo>")
-
-for group in groups:
-    print(groups)
 
 tab=len(links)
 #Choose desired group
 for subject in data:  #For each subject in Json file
     for attribute in data[subject]:   #for each attribute in subject
+        driver.switch_to.window(driver.window_handles[tab])    
         print(attribute["name"] + "  " + attribute["group"])
-        driver.switch_to.window(driver.window_handles[tab])
+        groups = driver.find_elements(By.LINK_TEXT, "<Pulsa aquí para apuntarte a este grupo>")
+        groups[int(attribute["group"])].click()
         #group = driver.find_element(By.LINK_TEXT, attribute["group"])
         #group.click()
         tab-=1
